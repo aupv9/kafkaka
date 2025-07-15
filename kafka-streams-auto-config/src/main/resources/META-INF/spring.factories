@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.manus.kafka.streams.springboot.autoconfig.KafkaStreamsAutoConfiguration
