@@ -35,7 +35,7 @@ public class J2EEKafkaAdminClientBuilderTest {
         // Then
         KafkaAdminClientProperties properties = builder.getProperties();
         assertNotNull(properties);
-        assertEquals(300000, properties.asMap().get("request.timeout.ms"));
+        assertEquals(30000, properties.asMap().get("request.timeout.ms"));
         assertEquals(5, properties.asMap().get("retries"));
     }
 

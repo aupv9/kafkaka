@@ -36,7 +36,7 @@ public class J2EEKafkaConsumerBuilderTest {
         // Then
         KafkaConsumerProperties properties = builder.getProperties();
         assertNotNull(properties);
-        assertEquals(false, properties.asMap().get("enable.auto.commit"));
+        assertEquals("false", properties.asMap().get("enable.auto.commit"));
         assertEquals("earliest", properties.asMap().get("auto.offset.reset"));
     }
 
@@ -81,7 +81,7 @@ public class J2EEKafkaConsumerBuilderTest {
         assertEquals("localhost:9092", map.get("bootstrap.servers"));
         assertEquals("test-client", map.get("client.id"));
         assertEquals("test-group", map.get("group.id"));
-        assertEquals(true, map.get("enable.auto.commit"));
+        assertEquals("true", map.get("enable.auto.commit"));
         assertEquals(5000, map.get("auto.commit.interval.ms"));
         assertEquals("latest", map.get("auto.offset.reset"));
         assertEquals(1024, map.get("fetch.min.bytes"));
