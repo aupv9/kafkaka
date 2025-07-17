@@ -293,7 +293,7 @@ public class ConfigurationValidatorTest {
     @ParameterizedTest
     @MethodSource("provideRangeTestData")
     @DisplayName("Test validateRange with various edge cases")
-    public void testValidateRangeEdgeCases(String property, Object value, Number min, Number max, boolean shouldPass) {
+    public void testValidateRangeEdgeCases(String property, Object value, long min, long max, boolean shouldPass) {
         // Given
         Map<String, Object> properties = new HashMap<>();
         properties.put(property, value);
@@ -310,29 +310,29 @@ public class ConfigurationValidatorTest {
     private static Stream<Arguments> provideRangeTestData() {
         return Stream.of(
             // Edge cases for boundary values
-            Arguments.of("timeout.ms", 1000, 1000, 60000, true),  // Min boundary
-            Arguments.of("timeout.ms", 60000, 1000, 60000, true), // Max boundary
-            Arguments.of("timeout.ms", 999, 1000, 60000, false),  // Below min
-            Arguments.of("timeout.ms", 60001, 1000, 60000, false), // Above max
+            Arguments.of("timeout.ms", 1000, 1000L, 60000L, true),  // Min boundary
+            Arguments.of("timeout.ms", 60000, 1000L, 60000L, true), // Max boundary
+            Arguments.of("timeout.ms", 999, 1000L, 60000L, false),  // Below min
+            Arguments.of("timeout.ms", 60001, 1000L, 60000L, false), // Above max
             
             // Different numeric types
-            Arguments.of("timeout.ms", 30000L, 1000, 60000, true), // Long value
-            Arguments.of("timeout.ms", 30000.0, 1000, 60000, true), // Double value
-            Arguments.of("timeout.ms", 30000.5, 1000, 60000, true), // Double with decimal
+            Arguments.of("timeout.ms", 30000L, 1000L, 60000L, true), // Long value
+            Arguments.of("timeout.ms", 30000.0, 1000L, 60000L, true), // Double value
+            Arguments.of("timeout.ms", 30000.5, 1000L, 60000L, true), // Double with decimal
             
             // String representations
-            Arguments.of("timeout.ms", "30000", 1000, 60000, true), // Valid string
-            Arguments.of("timeout.ms", "30000.0", 1000, 60000, true), // String with decimal
-            Arguments.of("timeout.ms", "not-a-number", 1000, 60000, false), // Invalid string
-            Arguments.of("timeout.ms", "", 1000, 60000, false), // Empty string
+            Arguments.of("timeout.ms", "30000", 1000L, 60000L, true), // Valid string
+            Arguments.of("timeout.ms", "30000.0", 1000L, 60000L, true), // String with decimal
+            Arguments.of("timeout.ms", "not-a-number", 1000L, 60000L, false), // Invalid string
+            Arguments.of("timeout.ms", "", 1000L, 60000L, false), // Empty string
             
             // Negative ranges
-            Arguments.of("offset", -100, -1000, 1000, true), // Negative value in range
-            Arguments.of("offset", -1001, -1000, 1000, false), // Below negative min
+            Arguments.of("offset", -100, -1000L, 1000L, true), // Negative value in range
+            Arguments.of("offset", -1001, -1000L, 1000L, false), // Below negative min
             
             // Zero boundaries
-            Arguments.of("count", 0, 0, 100, true), // Zero as min boundary
-            Arguments.of("count", -1, 0, 100, false) // Below zero min
+            Arguments.of("count", 0, 0L, 100L, true), // Zero as min boundary
+            Arguments.of("count", -1, 0L, 100L, false) // Below zero min
         );
     }
     
